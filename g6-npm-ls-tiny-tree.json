@@ -1,0 +1,95 @@
+{
+    "children": [
+        {
+		  "children": [
+              {
+                  "name":"线上onions主干数据源准备 01_backup_onions_data_use_first.sh"
+              },
+              {
+                  "name":"线上orders主干数据源准备 02_online_rename_production_collections_dump_orders.sh"
+              }
+          ],
+		  "name": "@online"
+        },
+        {
+		  "children": [
+              {
+                  "name": "线下主干数据源准备 01_onionsFirstReadyCollecion.sh",
+                  "children": [
+                      {
+                          "name": "清除僵尸用户 02_removezombies.sh",
+                          "children": [
+                              {
+                                  "name": "天机平台、cache每日数据准备 pull_orders_run_payment.sh",
+                                  "children": [
+                                      {"name": "orders_processing_bundle_style.py 清洗orders表成为中间表（任务型）"},
+                                      {
+                                          "name": "天机平台总调度脚本 payment_listen.py",
+                                          "children": [
+                                              {"name": "滔姐日常cache cache_v40.py"},
+                                              {"name": "更新天机数据 secret.py"},
+                                              {"name": "更新设备总日活 devices_activate.py"},
+                                              {"name": "更新设备新增 device_count.py"},
+                                              {"name": "更新用户总日活 users_activate.py"},
+                                              {"name": "更新用户新增 user_count.py"},
+                                              {"name": "更新周/月活跃 device_user_interval_activated.R"},
+                                              {"name": "更新VIP健康度 health.py"},
+                                              {"name": "更新产品页面用户分层 tritopic.py"},
+                                              {"name": "更新产品页面用户分层 teacher.py"},
+                                              {
+                                                  "name": "下一任务层",
+                                                  "children": [
+                                                      {"name": "每日导入users表到hive集群 mongo_users_to_hive.sh" },
+                                                      {
+                                                          "name": "日报任务层",
+                                                          "children": [
+                                                              {
+                                                                  "name": "videology相关 OOZIE调度脚本  oozie_task_start.sh",
+                                                                  "children": [
+                                                                      {"name": "videology相关 videology_new/run.sh"},
+                                                                      {"name": "videology相关 video_encode.py"},
+                                                                      {"name": "videology相关 videology_cache_hive.py"},
+                                                                      {"name": "videology相关 videology.py"},
+                                                                      {"name": "videology相关 update_video_info.py"}
+                                                                  ]
+                                                              },
+                                                              {
+                                                                  "name": "预习案报表相关 OOZIE调度脚本 /data_archive/books/",
+                                                                  "children": [
+                                                                      {"name": "预习案报表相关 总调度脚本 data_archive/books/run.sh"},
+                                                                      {"name": "预习案报表相关 预习案核心计算逻辑 books/main.py"},
+                                                                      {"name": "预习案报表相关 预习案核心计算逻辑 books/excel.py"}
+                                                                  ]
+                                                              },
+                                                              {
+                                                                  "name": "日报相关 OOZIE调度脚本 data_archive/operation/oozie_task_start.sh",
+                                                                  "children": [
+                                                                      {"name": "日报相关 总调度脚本 data_archive/operation/run.sh"},
+                                                                      {"name": "日报相关 渠道日报 data_archive/operation/channel_daily.py"},
+                                                                      {"name": "日报相关 运营日报 data_archive/operation/operation_daily.py"}
+                                                                  ]
+                                                              },
+                                                              {
+                                                                  "name": "B端周报 调度脚本 /home/liutao/data_archive/core/run.sh + oozie_task_start.sh",
+                                                                  "children": [
+                                                                      {"name": "B端周报 toB_new.py"}
+                                                                  ]
+                                                              }
+                                                          ]
+                                                      }
+                                                  ]
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ],
+		  "name": "@offline"
+        }
+    ],
+    "name": "daily_report"
+}
